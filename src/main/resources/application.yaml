@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: movie
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2GB
+      max-request-size: 2GB
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: vuthienktb@gmail.com
+    password: 123456
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/movie
+    username: root
+    password: 123456
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+server:
+  tomcat:
+    max-swallow-size: -1
+    max-http-form-post-size: -1
+file:
+  upload:
+    video-dir: uploads/videos
+    image-dir: uploads/images
+
+jwt:
+  secret: bbbe1bb4606617e6e4bce8bb2cc1d0bbfd40cc0e79252e35de8bbf7e0ace76ec
+  expiration: 100000
+
+app:
+  frontend.url: http://localhost:4200
