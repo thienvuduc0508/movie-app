@@ -9,8 +9,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: vuthienktb@gmail.com
-    password: 123456
+    username: thiendev58@gmail.com
+    password: yjpkzqmheitnztgn
     properties:
       mail:
         smtp:
@@ -42,8 +42,8 @@ file:
     image-dir: uploads/images
 
 jwt:
-  secret: bbbe1bb4606617e6e4bce8bb2cc1d0bbfd40cc0e79252e35de8bbf7e0ace76ec
-  expiration: 100000
+  secret: 4b8f99cc3ce393b096697e9ac59eee5461a6a5ca2d9d72ab945e0366159e0888
+  expiration: 2592000
 
 app:
   frontend.url: http://localhost:4200
