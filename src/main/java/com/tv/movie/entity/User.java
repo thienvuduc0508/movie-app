@@ -13,6 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -45,10 +46,10 @@ public class User {
     private boolean emailVerified = false;
 
     @Column(unique = true)
-    private String verificationToken;
+    private String verificationToken = UUID.randomUUID().toString();
 
     @Column
-    private Instant verificationTokenExpiry;
+    private Instant verificationTokenExpiry = Instant.now().plusSeconds(86400);
 
     @Column
     private String passwordResetToken;
