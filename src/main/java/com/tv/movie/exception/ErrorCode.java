@@ -23,6 +23,10 @@ public enum ErrorCode {
     NOT_VERIFIED_USER(1012, "Your account has not been verified", HttpStatus.BAD_REQUEST),
     INVALID_VERIFICATION_TOKEN(1013, "Invalid verification token", HttpStatus.BAD_REQUEST),
     EXPIRED_VERIFICATION_LINK(1013, "Expired verification link", HttpStatus.BAD_REQUEST),
+    INVALID_PASSWORD_RESET_TOKEN(1014, "Invalid or expired reset token", HttpStatus.BAD_REQUEST),
+    INVALID_CURRENT_PASSWORD(1014, "Invalid current password", HttpStatus.BAD_REQUEST),
+    PASSWORD_NOT_MATCH(1014, "Password not match", HttpStatus.BAD_REQUEST),
+
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
