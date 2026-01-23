@@ -52,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
                 .filter(u -> passwordEncoder.matches(loginRequest.getPassword(), u.getPassword()))
                 .orElseThrow(() -> new AppException(ErrorCode.FAILED_TO_LOGIN));
         if(!user.isActive()) {
-            throw new AppException(ErrorCode.DEACTIVE_USER);
+            throw new AppException(ErrorCode.DEACTIVATE_USER);
         }
         if(!user.isEmailVerified()) {
             throw new AppException(ErrorCode.NOT_VERIFIED_USER);

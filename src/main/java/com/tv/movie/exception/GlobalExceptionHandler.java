@@ -41,6 +41,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(errorCode.getStatusCode()).body(apiResponse);
     }
 
+    @ExceptionHandler(value = CustomMessageException.class)
+    ResponseEntity<ApiResponse<Void>> handlingCustomMessageException(CustomMessageException exception) {
+        ErrorCode errorCode = ErrorCode.INVALID_KEY;
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
+
+        apiResponse.setCode(errorCode.getCode());
+        apiResponse.setMessage(exception.getMessage());
+
+        return ResponseEntity.status(errorCode.getStatusCode()).body(apiResponse);
+    }
+
     @ExceptionHandler(value = AccessDeniedException.class)
     ResponseEntity<ApiResponse> handlingAccessDeniedException(AccessDeniedException exception) {
         ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
