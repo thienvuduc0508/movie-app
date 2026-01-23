@@ -3,10 +3,10 @@ package com.tv.movie.serviceImpl;
 import com.tv.movie.dao.UserRepository;
 import com.tv.movie.dto.request.LoginRequest;
 import com.tv.movie.dto.request.UserRequest;
+import com.tv.movie.dto.response.EmailValidationResponse;
 import com.tv.movie.dto.response.LoginResponse;
 import com.tv.movie.dto.response.MessageResponse;
 import com.tv.movie.entity.User;
-import com.tv.movie.enums.Role;
 import com.tv.movie.exception.AppException;
 import com.tv.movie.exception.ErrorCode;
 import com.tv.movie.mapper.UserMapper;
@@ -87,5 +87,54 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
         emailService.sendVerificationEmail(email, verificationToken);
         return new MessageResponse("Verification email sent successfully!");
+    }
+
+    @Override
+    public EmailValidationResponse validateEmail(String email) {
+        boolean exists = userRepository.existsByEmail(email);
+        return new EmailValidationResponse(exists, !exists);
+    }
+
+    @Override
+    public MessageResponse forgotPassword(String email) {
+        User user = serviceUtils.getUserByEmail(email);
+        String token = UUID.randomUUID().toString();
+        user.setPasswordResetToken(token);
+        user.setPasswordResetTokenExpiry(Instant.now().plusSeconds(3600));
+        userRepository.save(user);
+        emailService.sendPasswordResetEmail(email, token);
+        return new MessageResponse("Password reset email sent successfully!");
+    }
+
+    @Override
+    public MessageResponse resetPassword(String token, String newPassword) {
+        User user = userRepository.findByPasswordResetToken(token)
+                .orElseThrow(() -> new AppException(ErrorCode.INVALID_PASSWORD_RESET_TOKEN));
+        if(user.getPasswordResetTokenExpiry() == null || user.getPasswordResetTokenExpiry().isBefore(Instant.now())){
+            throw new AppException(ErrorCode.INVALID_PASSWORD_RESET_TOKEN);
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setPasswordResetToken(null);
+        user.setPasswordResetTokenExpiry(null);
+        userRepository.save(user);
+        return new MessageResponse("Password reset successfully!");
+    }
+
+    @Override
+    public MessageResponse changePassword(String email, String currentPassword, String newPassword) {
+        User user = serviceUtils.getUserByEmail(email);
+        if(!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new AppException(ErrorCode.INVALID_CURRENT_PASSWORD);
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        return new MessageResponse("Password changed successfully!");
+    }
+
+    @Override
+    public LoginResponse currentUser(String email) {
+        User user = serviceUtils.getUserByEmail(email);
+        return new LoginResponse(null, user.getEmail(), user.getFullName(), user.getRole().name());
     }
 }
