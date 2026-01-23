@@ -19,14 +19,19 @@ public enum ErrorCode {
     VIDEO_NOT_FOUND(1009, "Video not found", HttpStatus.NOT_FOUND),
     FAILED_SEND_EMAIL(1010, "Failed to send email", HttpStatus.INTERNAL_SERVER_ERROR),
     FAILED_TO_LOGIN(1011, "Failed to login", HttpStatus.BAD_REQUEST),
-    DEACTIVE_USER(1012, "Your account has been deactivated", HttpStatus.BAD_REQUEST),
+    DEACTIVATE_USER(1012, "Your account has been deactivated", HttpStatus.BAD_REQUEST),
     NOT_VERIFIED_USER(1012, "Your account has not been verified", HttpStatus.BAD_REQUEST),
     INVALID_VERIFICATION_TOKEN(1013, "Invalid verification token", HttpStatus.BAD_REQUEST),
     EXPIRED_VERIFICATION_LINK(1013, "Expired verification link", HttpStatus.BAD_REQUEST),
     INVALID_PASSWORD_RESET_TOKEN(1014, "Invalid or expired reset token", HttpStatus.BAD_REQUEST),
     INVALID_CURRENT_PASSWORD(1014, "Invalid current password", HttpStatus.BAD_REQUEST),
     PASSWORD_NOT_MATCH(1014, "Password not match", HttpStatus.BAD_REQUEST),
-
+    MAX_DESCRIPTION(1015, "Description must be at most 4000 characters", HttpStatus.BAD_REQUEST),
+    REQUIRED_TITLE(1016, "Title is required", HttpStatus.BAD_REQUEST),
+    INVALID_ROLE(1017, "Invalid role", HttpStatus.BAD_REQUEST),
+    CANT_DEACTIVATE_LAST_ADMIN(1018, "You cannot deactivate the last admin", HttpStatus.BAD_REQUEST),
+    CANT_DELETE_LAST_ADMIN(1019, "You cannot delete the last admin", HttpStatus.BAD_REQUEST),
+    CANT_DELETE_OWN_ACCOUNT(1020, "You cannot delete your own account", HttpStatus.BAD_REQUEST)
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

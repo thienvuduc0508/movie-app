@@ -9,10 +9,10 @@ import java.util.List;
 @Data
 public class VideoRequest {
 
-    @NotBlank(message = "Title is required")
+    @NotBlank(message = "REQUIRED_TITLE")
     private String title;
 
-    @Size(max = 4000, message = "Description must be at most 4000 characters")
+    @Size(max = 4000, message = "MAX_DESCRIPTION")
     private String description;
 
     private Integer year;
