@@ -64,7 +64,7 @@ public class Video {
     public String getSrc() {
         if(srcUuid != null && !srcUuid.isEmpty()) {
             String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + "/api/files/videos"+srcUuid;
+            return baseUrl + "/api/files/videos/"+srcUuid;
         }
         return null;
     }
@@ -73,7 +73,7 @@ public class Video {
     public String getPoster() {
         if(posterUuid != null && !posterUuid.isEmpty()) {
             String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + "/api/files/image"+posterUuid;
+            return baseUrl + "/api/files/image/"+posterUuid;
         }
         return null;
     }
